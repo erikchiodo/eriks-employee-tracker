@@ -10,6 +10,6 @@ VALUES ("CEO", 250000, 1),
        ("Lead Developer", 200000, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Bob", "Smith", 2),
+VALUES ("Bob", "Smith", 2, NULL),
        ("Sally", "Gordon", 1, 2),
        ("Miles", "Jordan", 3, 1);
