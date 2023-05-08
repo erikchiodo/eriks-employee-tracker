@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 
 class Prompt {
   constructor() {
-    this.option = [
+    this.options = [
       { name: "View all departments", value: "View All Departments" },
       { name: "View all roles", value: "View All Roles" },
       { name: "View all employees", value: "View All Employees" },
@@ -15,9 +15,10 @@ class Prompt {
 
   prompt() {
     return inquirer.prompt({
+      name: "option",
       type: "list",
       message: "What would you like to do?",
-      choices: this.option,
+      choices: this.options,
     });
   }
 }
