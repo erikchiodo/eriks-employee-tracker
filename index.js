@@ -30,14 +30,18 @@ const init = async () => {
 switch (ans.option) {
   case "View All Departments":
     console.log("View All Departments");
+        const newViewDepartmentQuery = new Queries(db);
+        newViewDepartmentQuery.viewAllDepartments();
     break;
   case "View All Roles":
     console.log("View All Roles");
-    const newRoleQuery = new Queries(db);
-    newRoleQuery.viewRoles();
+    const newViewRoleQuery = new Queries(db);
+    newViewRoleQuery.viewAllRoles();
     break;
   case "View All Employees":
     console.log("View All Employees");
+        const newRoleQuery = new Queries(db);
+        newRoleQuery.viewAllEmployees();
     break;
   case "Add Department":
     console.log("Add Department");
