@@ -7,7 +7,8 @@ class Queries {
 
   // TODO: View All Roles. Left join department on role (display: id, title, department, salary)
   viewAllRoles() {
-    this.db.query("SELECT id, title, salary, department_id FROM role",
+    this.db.query(
+      "SELECT id, title, salary, department_id FROM role",
       (err, res) => {
         if (err) throw err;
         console.log(res);
@@ -16,10 +17,13 @@ class Queries {
   }
   // TODO: View All Employees. Left join department and role on employee (display: id, first_name, last_name, title, department, salary, manager)
   viewAllEmployees() {
-    this.db.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, employee.manager_id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", function (err, results) {
-      if (err) throw err;
-      console.log(results);
-    });
+    this.db.query(
+      "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, employee.manager_id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id",
+      function (err, results) {
+        if (err) throw err;
+        console.log(results);
+      }
+    );
   }
 
   // TODO: View All Departments. Display Name and ID
@@ -30,6 +34,11 @@ class Queries {
   }
 
   // TODO: Add Department. Prompt user to add department
+  addDepartment(department) {
+    this.db.query("SELECT id, name FROM department", function (err, results) {
+      console.log(results);
+    });
+  }
 
   // TODO: Add Role. Prompt user to provide name of role, salary of role, and department role belongs to (choice)
 

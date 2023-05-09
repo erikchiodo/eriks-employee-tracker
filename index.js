@@ -44,9 +44,14 @@ switch (ans.option) {
         newRoleQuery.viewAllEmployees();
     break;
   case "Add Department":
+    const department = await userPrompt.addDepartmentPrompt();
+    console.log(department)
+    const newDepartment = new Queries(db);
+    newDepartment.addDepartment(department);
     console.log("Add Department");
     break;
   case "Add Role":
+
     console.log("Add Role");
     break;
   case "Add Employee":

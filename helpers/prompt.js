@@ -21,5 +21,12 @@ class Prompt {
       choices: this.options,
     });
   }
+  addDepartmentPrompt() {
+    return inquirer.prompt({
+      name: "text",
+      type: "input",
+      message: "What is the name of the department?",
+    });
+  }
 }
 module.exports = Prompt;
