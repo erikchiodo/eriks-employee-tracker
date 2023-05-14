@@ -82,6 +82,6 @@ No Screenshots -- See link at bottom for walkthrough of application
 
 Link to [Employee Tracker Assignment](https://github.com/erikchiodo/eriks-employee-tracker)
 
-Link to walkthrough: https://drive.google.com/file/d/1fMGY5W93HtbufvE7C0NSYDOa-kdjDMwq/view
+Link to [Demo] (https://drive.google.com/file/d/1fMGY5W93HtbufvE7C0NSYDOa-kdjDMwq/view)
 
 If you need to contact me directly, here's my email: erikchiodo@gmail.com!
