@@ -14,19 +14,69 @@ class Prompt {
   }
 
   prompt() {
-    return inquirer.prompt({
+    return inquirer.prompt([{
       name: "option",
       type: "list",
       message: "What would you like to do?",
       choices: this.options,
-    });
+    }]);
   }
   addDepartmentPrompt() {
-    return inquirer.prompt({
-      name: "text",
+    return inquirer.prompt([{
+      name: "department",
       type: "input",
-      message: "What is the name of the department?",
-    });
+      message: "What is the name of the department? ",
+    }]);
   }
+
+  addRolePrompt(departments) {
+    const rolePrompts = [
+      {
+        name: "role_name",
+        type: "text",
+        message: "What is the name of the role? ",
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "What is the salary of the role? ",
+      },
+      {
+        name: "department_name",
+        type: "list",
+        message: "Which department does the role belong to? ",
+        choices: departments,
+      },
+    ];
+    return inquirer.prompt(rolePrompts);
+  }
+
+  addEmployeePrompt(roles, managers) {
+    const employeePrompts = [
+      {
+        type: "first_name",
+        name: "text",
+        message: "What is the employee's first name? ",
+      },
+      {
+        name: "last_name",
+        type: "input",
+        message: "What is the employee's last name? ",
+      },
+      {
+        name: "role_id",
+        type: "list",
+        message: "What is the employee's role? ",
+        choices: roles,
+      },
+      {
+        name: "manager_id",
+        type: "list",
+        message: "Who is the employee's manager? ",
+        choices: managers,
+      },
+    ];
+    return inquirer.prompt(employeePrompts);
+  };
 }
 module.exports = Prompt;

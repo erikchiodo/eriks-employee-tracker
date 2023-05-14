@@ -24,47 +24,62 @@ const db = mysql.createConnection(
 );
 
 const userPrompt = new Prompt();
+const userQuery = new Queries(db)
 
 const init = async () => {
   const ans = await userPrompt.prompt();
-switch (ans.option) {
-  case "View All Departments":
-    console.log("View All Departments");
-        const newViewDepartmentQuery = new Queries(db);
-        newViewDepartmentQuery.viewAllDepartments();
-    break;
-  case "View All Roles":
-    console.log("View All Roles");
-    const newViewRoleQuery = new Queries(db);
-    newViewRoleQuery.viewAllRoles();
-    break;
-  case "View All Employees":
-    console.log("View All Employees");
-        const newRoleQuery = new Queries(db);
-        newRoleQuery.viewAllEmployees();
-    break;
-  case "Add Department":
-    const department = await userPrompt.addDepartmentPrompt();
-    console.log(department)
-    const newDepartment = new Queries(db);
-    newDepartment.addDepartment(department);
-    console.log("Add Department");
-    break;
-  case "Add Role":
+  switch (ans.option) {
+    case "View All Departments":
+      userQuery.viewAllDepartments();
+      break;
+    case "View All Roles":
+      userQuery.viewAllRoles();
+      break;
+    case "View All Employees":
+      userQuery.viewAllEmployees();
+      break;
+    case "Add Department":
+      const departmentAnswers = await userPrompt.addDepartmentPrompt();
+      userQuery.addDepartment(departmentAnswers);
+      break;
 
-    console.log("Add Role");
-    break;
-  case "Add Employee":
-    console.log("Add Employee");
-    break;
-  case "Update Employee Role":
-    console.log("Update Employee Role");
-    break;
-  default:
-    console.log("Invalid choice");
-}
-}
 
-init();
+
+
+
+      
+    // Review
+    case "Add Role":
+      const departmentChoices = await userQuery.getDepartmentChoices();
+      const roleAnswers = await userPrompt.addRolePrompt(departmentChoices);
+      console.log(roleAnswers)
+      userQuery.addRole(roleAnswers);
+      break;
+
+
+
+
+
+    // Review
+    case "Add Employee":
+      const roleChoices = await userQuery.getRoleChoices();
+      const managerChoices = await userQuery.getManagerChoices();
+      const employee = await userPrompt.addEmployeePrompt(roleChoices, managerChoices);
+      userQuery.addEmployee(employee);
+      break;
+
+    // Review
+    case "Update Employee Role":
+
+      break;
+    default:
+      console.log("Good bye!");
+      process.exit(0);
+      return;
+  }
+  init();
+};
+
+init()
 
 module.exports = db;
