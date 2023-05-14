@@ -54,8 +54,8 @@ class Prompt {
   addEmployeePrompt(roles, managers) {
     const employeePrompts = [
       {
-        type: "first_name",
-        name: "text",
+        name: "first_name",
+        type: "text",
         message: "What is the employee's first name? ",
       },
       {
@@ -78,5 +78,25 @@ class Prompt {
     ];
     return inquirer.prompt(employeePrompts);
   };
+
+  updateEmployeePrompt(employeeNames, employeeRoles) {
+    const updatePrompts = [
+      {
+        name: "employee_name",
+        type: "list",
+        message: "Which employee's role do you want to update? ",
+        choices: employeeNames,
+      },
+      {
+        name: "employee_role",
+        type: "list",
+        message: "Which role do you want to assign the selected employee? ",
+        choices: employeeRoles,
+      },
+    ];
+    return inquirer.prompt(updatePrompts);
+  }
+
+
 }
 module.exports = Prompt;

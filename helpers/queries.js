@@ -16,11 +16,11 @@ class Queries {
   async getManagerChoices() {
     const [managers] = await this.db
       .promise()
-      .query(`SELECT * FROM employee WHERE manager_id IS NOT NULL`);
-    return managers.map(({ manager_id, first_name, last_name }) => {
+      .query(`SELECT * FROM employee WHERE manager_id IS NULL`);
+    return managers.map(({ id, first_name, last_name }) => {
       return {
         name: `${first_name} ${last_name}`,
-        value: manager_id,
+        value: id,
       };
     });
   }
@@ -35,6 +35,19 @@ class Queries {
       };
     });
   }
+
+  async getEmployeeNames() {
+    const [employeeNames] = await this.db
+      .promise()
+      .query(`SELECT * FROM employee`);
+    return employeeNames.map(({ id, first_name, last_name }) => {
+      return {
+        name: `${first_name} ${last_name}`,
+        value: id,
+      };
+    });
+  }
+
   viewAllRoles() {
     this.db.query(
       "SELECT id, title, salary, department_id FROM role",
@@ -59,8 +72,6 @@ class Queries {
       console.log(results);
     });
   }
-
-  // TODO: Add Department. Prompt user to add department
   addDepartment({ department }) {
     this.db.query(
       `INSERT INTO department (name) VALUES (?)`,
@@ -71,32 +82,41 @@ class Queries {
     );
     console.log("New department added");
   }
-
-  // TODO: Add Role. Prompt user to provide name of role, salary of role, and department role belongs to (choice)
-  addRole({ role_name, salary, department_id }) {
+  addRole({ role_name, salary, department_name }) {
     this.db.query(
       `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`,
-      [role_name, salary, department_id],
+      [role_name, salary, department_name],
       function (err, results) {
         if (err) throw err;
         console.log(results);
       }
     );
+    console.log("New Role Added");
   }
 
-  // TODO: Add Employee. Prompt user to provide first name, last name, employee's role (choice), manager (choice)
-  addEmployee({ employee }) {
+  addEmployee({ first_name, last_name, role_id, manager_id }) {
     this.db.query(
-      `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (${employee})`,
+      `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`,
+      [first_name, last_name, role_id, manager_id],
       function (err, results) {
         if (err) throw err;
         console.log(results);
       }
     );
-    console.log("New role added");
-    
+    console.log("New Employee added");
   }
   // TODO: Update an Employee Role. Prompt user to provide id of employee, role change (set/where).
+  updateEmployee({ employee_name, employee_role }) {
+    this.db.query(
+      `UPDATE employee SET role_id = (?) WHERE id = (?)`,
+      [employee_role, employee_name],
+      function (err, results) {
+        if (err) throw err;
+        console.log(results);
+      }
+    );
+    console.log("Employee Updated");
+  }
 }
 
 module.exports = { Queries }

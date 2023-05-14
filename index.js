@@ -41,36 +41,29 @@ const init = async () => {
     case "Add Department":
       const departmentAnswers = await userPrompt.addDepartmentPrompt();
       userQuery.addDepartment(departmentAnswers);
+      userQuery.viewAllDepartments();
       break;
-
-
-
-
-
-      
-    // Review
     case "Add Role":
       const departmentChoices = await userQuery.getDepartmentChoices();
       const roleAnswers = await userPrompt.addRolePrompt(departmentChoices);
-      console.log(roleAnswers)
       userQuery.addRole(roleAnswers);
+      userQuery.viewAllRoles();
       break;
-
-
-
-
-
-    // Review
     case "Add Employee":
       const roleChoices = await userQuery.getRoleChoices();
       const managerChoices = await userQuery.getManagerChoices();
-      const employee = await userPrompt.addEmployeePrompt(roleChoices, managerChoices);
-      userQuery.addEmployee(employee);
+      const employeeAnswers = await userPrompt.addEmployeePrompt(roleChoices, managerChoices);
+      userQuery.addEmployee(employeeAnswers);
+      userQuery.viewAllEmployees();
       break;
 
     // Review
     case "Update Employee Role":
-
+      const employeeNames = await userQuery.getEmployeeNames();
+      const employeeRoleChoices = await userQuery.getRoleChoices();
+      const updateEmployeeAnswers = await userPrompt.updateEmployeePrompt(employeeNames, employeeRoleChoices);
+      userQuery.updateEmployee(updateEmployeeAnswers);
+      userQuery.viewAllEmployees();
       break;
     default:
       console.log("Good bye!");
